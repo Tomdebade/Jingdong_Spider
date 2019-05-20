@@ -103,16 +103,21 @@ def save_to_mongo(result):
 
 
 def main():
-    total = search()
-    total = int(total)
-    for page in range(1, total + 1):
-        print('正在爬取第' + str(page) + '页')
-        for product in get_products():
-            print(product)
-            save_to_mongo(product)
-        next_page(page + 1)
-        time.sleep(1)
-        # browser.refresh()
+    try:
+        total = search()
+        total = int(total)
+        for page in range(1, total + 1):
+            print('正在爬取第' + str(page) + '页')
+            for product in get_products():
+                print(product)
+                save_to_mongo(product)
+            next_page(page + 1)
+            time.sleep(1)
+            # browser.refresh()
+    except Exception:
+        print('出错啦')
+    finally:
+        browser.close()
 
 
 if __name__=="__main__":
